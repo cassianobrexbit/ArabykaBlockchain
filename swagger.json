@@ -1,0 +1,733 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Agropacking - Blockchain API",
+        "description": "API para registro e consulta de registros em blockchain,",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Batches",
+            "description": "Rotas para consultas e registros de lotes em blockchain."
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+
+        "/barcode": {
+            "post": {
+                "tags": [
+                    "Barcodes"
+                ],
+                "description": "Registra dados de um código de barras na blockchain.",
+                "parameters": [
+                    {
+                        "name": "data",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Barcode"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Registra dados de um código de barras na blockchain.",
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/barcode/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Id do código de barras a ser buscado",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Barcodes"
+                ],
+                "summary": "Obtendo um código de barras registrado na blockchain",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Barcode"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+
+        "/barcode-event": {
+            "post": {
+                "tags": [
+                    "Barcode Events"
+                ],
+                "description": "Registra dados de um evento ocorrido em um código de barras na blockchain.",
+                "parameters": [
+                    {
+                        "name": "data",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/BarcodeEvent"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Registra dados de um evento ocorrido em um código de barras na blockchain.",
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/barcode-event/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID do evento a ser buscado",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Barcode Events"
+                ],
+                "summary": "Obtendo um evento registrado na blockchain",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/BarcodeEvent"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+
+        "/barcode-reading": {
+            "post": {
+                "tags": [
+                    "Barcode Readings"
+                ],
+                "description": "Registra dados de uma leitura em um código de barras na blockchain.",
+                "parameters": [
+                    {
+                        "name": "data",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/BarcodeReading"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Registra dados de uma leitura de um código de barras na blockchain.",
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/barcode-reading/{external_identifier}": {
+            "parameters": [
+                {
+                    "name": "external_identifier",
+                    "in": "path",
+                    "required": true,
+                    "description": "Identificador externo da leitura de código de barras a ser buscada.",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Barcode Readings"
+                ],
+                "summary": "Obtendo uma leitura registrado na blockchain",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/BarcodeReading"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+
+        "/batch": {
+            "post": {
+                "tags": [
+                    "Batches"
+                ],
+                "description": "Registra dados de um lote na blockchain.",
+                "parameters": [
+                    {
+                        "name": "data",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Batch"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Registrando um novo lote na blockchain",
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/batch/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID do lote a ser buscado",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Batches"
+                ],
+                "summary": "Obtendo um lote registrado na blockchain",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Batch"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/batch/{id}/barcode": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID do lote a ser buscado para receber o novo código de barras",
+                    "type": "integer"
+                },
+                {
+                    "name": "quantity",
+                    "in": "body",
+                    "required": true,
+                    "description": "Quantidade",
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "tags": [
+                    "Batches"
+                ],
+                "summary": "Registrando um código de barras adicional para um lote.",
+                "responses": {
+                    "201": {
+                        "description": "Novo produto registrado na blockchain.",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+
+        "/batch-event": {
+            "post": {
+                "tags": [
+                    "Batch Events"
+                ],
+                "description": "Registra dados de um evento de lote na blockchain.",
+                "parameters": [
+                    {
+                        "name": "data",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/BatchEvent"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Registrando um novo lote na blockchain",
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/batch-event/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID do lote a ser buscado",
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Batch Events"
+                ],
+                "summary": "Obtendo um evento de um lote registrado na blockchain",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/BatchEvent"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+
+        "/product": {
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "description": "Registra dados de um produto na blockchain.",
+                "parameters": [
+                    {
+                        "name": "data",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Registrando um novo produto na blockchain.",
+                "responses": {
+                    "201": {
+                        "description": "Novo produto registrado na blockchain.",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/{id}": {
+            "put": {
+                "tags": [
+                    "Products"
+                ],
+                "description": "Registra dados de um produto na blockchain.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do lote a ser buscado.",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "data",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Editando um produto na blockchain.",
+                "responses": {
+                    "200": {
+                        "description": "Novo produto registrado na blockchain.",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Products"
+                ],
+                "description": "Edita parcialmente os dados de um produto na blockchain.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do lote a ser editado.",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "data",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Editando parcialmente um produto na blockchain.",
+                "responses": {
+                    "200": {
+                        "description": "Produto parcialmente editado na blockchain.",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do lote a ser buscado.",
+                        "type": "integer"
+                    }
+                ],
+                "summary": "Buscando um produto registrado na blockchain.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Products"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do lote a ser excluído.",
+                        "type": "integer"
+                    }
+                ],
+                "summary": "Excluindo um produto registrado na blockchain.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Barcode": {
+            "required": [
+                "id",
+                "batch",
+                "status"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "uniqueItems": true
+                },
+                "batch": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "BarcodeEvent": {
+            "required": [
+                "id",
+                "barcode",
+                "barcode_event_type"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "uniqueItems": true
+                },
+                "barcode": {
+                    "type": "integer"
+                },
+                "barcode_event_type": {
+                    "type": "integer"
+                }
+            }
+        },
+        "BarcodeReading": {
+            "required": [
+                "id",
+                "barcode",
+                "datetime",
+                "latitude",
+                "longitude",
+                "user_identifier"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "uniqueItems": true
+                },
+                "barcode": {
+                    "type": "string"
+                },
+                "latitude": {
+                    "type": "number"
+                },
+                "longitude": {
+                    "type": "number"
+                },
+                "user_identifier": {
+                    "type": "string"
+                }
+            }
+        },
+        "Batch": {
+            "required": [
+                "id",
+                "identification",
+                "fabrication_date",
+                "expiration_date",
+                "product_reference"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "uniqueItems": true
+                },
+                "identification": {
+                    "type": "string"
+                },
+                "fabrication_date": {
+                    "type": "string"
+                },
+                "expiration_date": {
+                    "type": "string"
+                },
+                "product_reference": {
+                    "type": "integer"
+                }
+            }
+        },
+        "BatchEvent": {
+            "required": [
+                "id",
+                "batch",
+                "batch_event_type"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "uniqueItems": true
+                },
+                "batch": {
+                    "type": "integer"
+                },
+                "batch_event_type": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Product": {
+            "required": [
+                "id",
+                "name",
+                "classification",
+                "company"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "uniqueItems": true
+                },
+                "name": {
+                    "type": "string"
+                },
+                "classification": {
+                    "type": "integer"
+                },
+                "company": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Response": {
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "Error": {
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+
+    }
+}
